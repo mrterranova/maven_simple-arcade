@@ -1,5 +1,8 @@
 package com.github.curriculeon.arcade;
 
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+
 /**
  * Created by leon on 7/21/2020.
  * All players of a game should abide by `PlayerInterface`.
@@ -14,6 +17,7 @@ public interface PlayerInterface {
 
     /**
      * Defines how a specific implementation of `PlayerInterface` plays their respective game.
+     *
      * @param <SomeReturnType> specify any return type you would like here
      * @return whatever return value you would like
      */

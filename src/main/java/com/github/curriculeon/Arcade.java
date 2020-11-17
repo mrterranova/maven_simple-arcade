@@ -41,6 +41,7 @@ public class Arcade implements Runnable {
                     }
                 } else {
                     // TODO - implement better exception handling
+                    // TODO - implement better exception handling
                     String errorMessage = "No account found with name of [ %s ] and password of [ %s ]";
                     throw new RuntimeException(String.format(errorMessage, accountPassword, accountName));
                 }

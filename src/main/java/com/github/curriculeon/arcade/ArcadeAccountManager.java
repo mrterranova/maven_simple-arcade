@@ -1,21 +1,33 @@
 package com.github.curriculeon.arcade;
 
+import java.util.List;
+
 /**
  * Created by leon on 7/21/2020.
  * `ArcadeAccountManager` stores, manages, and retrieves `ArcadeAccount` objects
  * it is advised that every instruction in this class is logged
  */
 public class ArcadeAccountManager {
+    private List<ArcadeAccount> arcadeAccountList;
+
     /**
      * @param accountName     name of account to be returned
      * @param accountPassword password of account to be returned
      * @return `ArcadeAccount` with specified `accountName` and `accountPassword`
      */
     public ArcadeAccount getAccount(String accountName, String accountPassword) {
-        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        String currentClassName = getClass().getName();
-        String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";
-        throw new RuntimeException(String.format(errorMessage, currentMethodName, currentClassName));
+        for(ArcadeAccount arcadeAccount : arcadeAccountList) {
+            String currentAccountName = arcadeAccount.getUsername();
+            String currentAccountPassword = arcadeAccount.getPassword();
+            Boolean isValidAccountName = currentAccountName.equals(accountName);
+            Boolean isValidAccountPassword = currentAccountPassword.equals(accountPassword);
+            Boolean isValidLogin = isValidAccountName && isValidAccountPassword;
+            if(isValidLogin) {
+                return arcadeAccount;
+            }
+        }
+        String errorMessage = "Unable to find account with name [ %s ] and password [ %s ]";
+        throw new RuntimeException(String.format(errorMessage, accountName, accountPassword));
     }
 
     /**
@@ -26,10 +38,7 @@ public class ArcadeAccountManager {
      * @return new instance of `ArcadeAccount` with specified `accountName` and `accountPassword`
      */
     public ArcadeAccount createAccount(String accountName, String accountPassword) {
-        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        String currentClassName = getClass().getName();
-        String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";
-        throw new RuntimeException(String.format(errorMessage, currentMethodName, currentClassName));
+        return new ArcadeAccount(accountName, accountPassword);
     }
 
     /**
@@ -38,9 +47,6 @@ public class ArcadeAccountManager {
      * @param arcadeAccount the arcadeAccount to be added to `this.getArcadeAccountList()`
      */
     public void registerAccount(ArcadeAccount arcadeAccount) {
-        String currentMethodName = new Object(){}.getClass().getEnclosingMethod().getName();
-        String currentClassName = getClass().getName();
-        String errorMessage = "Method with name [ %s ], defined in class with name [ %s ] has  not yet been implemented";
-        throw new RuntimeException(String.format(errorMessage, currentMethodName, currentClassName));
+        this.arcadeAccountList.add(arcadeAccount);
     }
 }
