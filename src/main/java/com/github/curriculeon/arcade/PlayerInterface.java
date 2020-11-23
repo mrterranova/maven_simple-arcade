@@ -1,14 +1,12 @@
 package com.github.curriculeon.arcade;
 
-import com.github.curriculeon.arcade.numberguess.NumberGuessGame;
-
 /**
  * Created by leon on 7/21/2020.
  * All players of a game should abide by `PlayerInterface`.
  * All players must have reference to the `ArcadeAccount` used to log into the `Arcade` system.
  * All players are capable of `play`ing a game.
  */
-public interface PlayerInterface<N> {
+public interface PlayerInterface {
     /**
      * @return the `ArcadeAccount` used to log into the `Arcade` system to play this game
      */
@@ -20,6 +18,4 @@ public interface PlayerInterface<N> {
      * @return whatever return value you would like
      */
     <SomeReturnType> SomeReturnType play();
-
-    void play(NumberGuessGame numberGuessGame);
 }

@@ -6,27 +6,30 @@ package com.github.curriculeon.arcade;
  * The `ArcadeAccount` is used to log into the system to select a `Game` to play.
  */
 public class ArcadeAccount {
-    private String accountName;
-    private String accountPassword;
+    private String name;
+    private String password;
 
-    public ArcadeAccount(String accountName, String accountPassword) {
-        this.accountName = accountName;
-        this.accountPassword = accountPassword;
+    public ArcadeAccount() {
     }
 
-    public String getAccountName() {
-        return accountName;
+    public ArcadeAccount(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
 
-    public void setAccountName(String accountName) {
-        this.accountName = accountName;
+    public String getName() {
+        return name;
     }
 
-    public String getAccountPassword() {
-        return accountPassword;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setAccountPassword(String accountPassword) {
-        this.accountPassword = accountPassword;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

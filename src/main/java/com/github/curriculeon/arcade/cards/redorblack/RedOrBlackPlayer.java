@@ -1,17 +1,13 @@
-
-package com.github.curriculeon.arcade.numberguess;
+package com.github.curriculeon.arcade.cards.redorblack;
 
 import com.github.curriculeon.arcade.ArcadeAccount;
 import com.github.curriculeon.arcade.PlayerInterface;
 import com.github.curriculeon.utils.IOConsole;
 
-/**
- * Created by leon on 7/21/2020.
- */
-public class NumberGuessPlayer implements PlayerInterface {
+public class RedOrBlackPlayer implements PlayerInterface {
     private ArcadeAccount arcadeAccount;
 
-    public NumberGuessPlayer(ArcadeAccount arcadeAccount) {
+    public RedOrBlackPlayer(ArcadeAccount arcadeAccount) {
         this.arcadeAccount = arcadeAccount;
     }
 
@@ -21,7 +17,7 @@ public class NumberGuessPlayer implements PlayerInterface {
     }
 
     @Override
-    public Integer play() {
-        return new IOConsole().getIntegerInput("Please enter the number you would like to guess.");
+    public String play() {
+        return new IOConsole().getStringInput("Your options are [ red ], [ black ], [ quit ]");
     }
 }
