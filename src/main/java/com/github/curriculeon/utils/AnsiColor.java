@@ -5,20 +5,20 @@ package com.github.curriculeon.utils;
  * used to create color for output of `IOConsole`
  */
 public enum AnsiColor {
-    AUTO("\u001B[0m"),
-    BLACK("\u001B[30m"),
-    RED("\u001B[31m"),
-    GREEN("\u001B[32m"),
-    YELLOW("\u001B[33m"),
-    BLUE("\u001B[34m"),
-    PURPLE("\u001B[35m"),
-    CYAN("\u001B[36m"),
-    WHITE("\u001B[37m");
+    AUTO(0),
+    BLACK(3),
+    RED(31),
+    GREEN(32),
+    YELLOW(33),
+    BLUE(34),
+    PURPLE(35),
+    CYAN(36),
+    WHITE(37);
 
     private final String color;
 
-    AnsiColor(String ansiColor) {
-        this.color = ansiColor;
+    AnsiColor(int ansiNumber) {
+        this.color = "[\u001B[" + ansiNumber + "m";
     }
 
     public String getColor() {

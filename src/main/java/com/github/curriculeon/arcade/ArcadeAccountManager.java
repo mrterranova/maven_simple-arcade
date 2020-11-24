@@ -1,3 +1,4 @@
+
 package com.github.curriculeon.arcade;
 
 import java.util.ArrayList;

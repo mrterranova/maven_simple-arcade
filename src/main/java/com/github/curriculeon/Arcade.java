@@ -2,16 +2,18 @@ package com.github.curriculeon;
 
 import com.github.curriculeon.arcade.ArcadeAccount;
 import com.github.curriculeon.arcade.ArcadeAccountManager;
-import com.github.curriculeon.arcade.GameInterface;
-import com.github.curriculeon.arcade.PlayerInterface;
-import com.github.curriculeon.arcade.cards.redorblack.RedOrBlackGame;
-import com.github.curriculeon.arcade.cards.redorblack.RedOrBlackPlayer;
-import com.github.curriculeon.arcade.numberguess.NumberGuessGame;
-import com.github.curriculeon.arcade.numberguess.NumberGuessPlayer;
-import com.github.curriculeon.arcade.slots.SlotsGame;
+import com.github.curriculeon.arcade.games.GameInterface;
+import com.github.curriculeon.arcade.games.PlayerInterface;
+import com.github.curriculeon.arcade.games.cards.redorblack.RedOrBlackGame;
+import com.github.curriculeon.arcade.games.cards.redorblack.RedOrBlackPlayer;
+import com.github.curriculeon.arcade.games.numberguess.NumberGuessGame;
+import com.github.curriculeon.arcade.games.numberguess.NumberGuessPlayer;
+import com.github.curriculeon.arcade.games.slots.SlotsGame;
 import com.github.curriculeon.arcade.games.slots.SlotsPlayer;
 import com.github.curriculeon.utils.AnsiColor;
 import com.github.curriculeon.utils.IOConsole;
+
+import java.util.StringJoiner;
 
 /**
  * Created by leon on 7/21/2020.
@@ -19,12 +21,11 @@ import com.github.curriculeon.utils.IOConsole;
 public class Arcade implements Runnable {
     private final IOConsole console = new IOConsole(AnsiColor.BLUE);
 
+
     @Override
     public void run() {
-        ArcadeAccountManager arcadeAccountManager = new ArcadeAccountManager();
-        ArcadeAccount testAccount = arcadeAccountManager.createAccount("leon", "hunter");
-        arcadeAccountManager.registerAccount(testAccount);
         String arcadeDashBoardInput;
+        ArcadeAccountManager arcadeAccountManager = new ArcadeAccountManager();
         do {
             arcadeDashBoardInput = getArcadeDashboardInput();
             if ("select-game".equals(arcadeDashBoardInput)) {
@@ -34,15 +35,14 @@ public class Arcade implements Runnable {
                 boolean isValidLogin = arcadeAccount != null;
                 if (isValidLogin) {
                     String gameSelectionInput = getGameSelectionInput().toUpperCase();
-                    if ("SLOTS".equalsIgnoreCase(gameSelectionInput)) {
+                    if ("SLOTS".equals(gameSelectionInput)) {
                         play(new SlotsGame(), new SlotsPlayer(arcadeAccount));
-                    }
-                    else if ("REDORBLACK".equalsIgnoreCase(gameSelectionInput)) {
-                        play(new RedOrBlackGame(), new RedOrBlackPlayer(arcadeAccount));
-                    } else if ("NUMBERGUESS".equalsIgnoreCase(gameSelectionInput)) {
+                    } else if ("REDORBLACK".equals(gameSelectionInput)) {
+                            play(new RedOrBlackGame(), new RedOrBlackPlayer(arcadeAccount));
+                    } else if ("NUMBERGUESS".equals(gameSelectionInput)) {
                         play(new NumberGuessGame(), new NumberGuessPlayer(arcadeAccount));
                     } else {
-                        // TODO - implement better exceptionhandling
+                        // TODO - implement better exception handling
                         String errorMessage = "[ %s ] is an invalid game selection";
                         throw new RuntimeException(String.format(errorMessage, gameSelectionInput));
                     }
@@ -80,9 +80,19 @@ public class Arcade implements Runnable {
     private void play(Object gameObject, Object playerObject) {
         GameInterface game = (GameInterface) gameObject;
         PlayerInterface player = (PlayerInterface) playerObject;
-        game.add(player);
-        game.setup();
-        game.run();
-        game.tearDown();
+        String userInput;
+        do {
+            String gameName = game.getClass().getSimpleName();
+            String userPrompt = new StringJoiner("\n")
+                    .add("Welcome back to the %s menu.")
+                    .add("From here, you can enter any of the following:")
+                    .add("\t[ play ], [ quit]")
+                    .toString();
+            userInput = console.getStringInput(userPrompt, gameName);
+            game.add(player);
+            game.setup();
+            game.run();
+            game.tearDown();
+        } while (!"quit".equalsIgnoreCase(userInput));
     }
 }

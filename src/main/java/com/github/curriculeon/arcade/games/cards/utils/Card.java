@@ -1,4 +1,4 @@
-package com.github.curriculeon.arcade.cards.utils;
+package com.github.curriculeon.arcade.games.cards.utils;
 
 public class Card {
     private final Suit suit;

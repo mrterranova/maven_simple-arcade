@@ -1,4 +1,4 @@
-package com.github.curriculeon.arcade.slots;
+package com.github.curriculeon.arcade.games.slots;
 
 
 import com.github.curriculeon.utils.RandomUtils;
